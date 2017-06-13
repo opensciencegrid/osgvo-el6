@@ -77,7 +77,7 @@ yum -y install \
 # osg
 # use CA certs from CVMFS    
 yum -y install osg-ca-certs osg-wn-client
-mv /etc/grid-security/certificates /etc/grid-security/certificates.osg-ca-certs \
+mv /etc/grid-security/certificates /etc/grid-security/certificates.osg-ca-certs
 ln -f -s /cvmfs/oasis.opensciencegrid.org/mis/certificates /etc/grid-security/certificates
 
 # htcondor - include so we can chirp
