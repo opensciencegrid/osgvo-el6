@@ -23,6 +23,7 @@ yum -y groupinstall "Additional Development" \
                     "Scientific Support"
 
 yum -y install \
+    redhat-lsb \
     astropy-tools \
 	bc \
 	binutils \

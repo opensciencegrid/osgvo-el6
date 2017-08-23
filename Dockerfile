@@ -21,6 +21,7 @@ RUN yum -y grouplist \
                            "Scientific Support"
 
 RUN yum -y install \
+           redhat-lsb \
            astropy-tools \
            bc \
            binutils \
