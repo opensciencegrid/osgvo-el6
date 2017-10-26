@@ -7,7 +7,7 @@ yum -y upgrade
 yum -y install epel-release yum-plugin-priorities
 
 # osg repo
-yum -y install http://repo.grid.iu.edu/osg/3.3/osg-3.3-el6-release-latest.rpm
+yum -y install http://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
 
 # pegasus repo   
 echo -e "# Pegasus\n[Pegasus]\nname=Pegasus\nbaseurl=http://download.pegasus.isi.edu/wms/download/rhel/6/\$basearch/\ngpgcheck=0\nenabled=1\npriority=50" >/etc/yum.repos.d/pegasus.repo
@@ -58,6 +58,7 @@ yum -y install \
 	numpy \
 	octave \
 	octave-devel \
+	osg-wn-client \
 	openssl098e \
 	p7zip p7zip-plugins \
 	python-astropy \
