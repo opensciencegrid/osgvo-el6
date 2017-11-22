@@ -88,6 +88,10 @@ RUN yum -y install pegasus
 # required directories
 RUN mkdir -p /cvmfs
 
+# make sure we have a way to bind host provided libraries
+# see https://github.com/singularityware/singularity/issues/611
+RUN mkdir -p /host-libs 
+
 # verification
 RUN ls -l /etc/grid-security/
 
