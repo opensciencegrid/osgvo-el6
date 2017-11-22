@@ -93,7 +93,7 @@ mkdir -p /cvmfs
 
 # make sure we have a way to bind host provided libraries
 # see https://github.com/singularityware/singularity/issues/611
-mkdir -p /host-libs 
+mkdir -p /host-libs /etc/OpenCL/vendors
 
 # verification
 ls -l /etc/grid-security/
