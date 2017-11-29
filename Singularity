@@ -9,7 +9,7 @@ yum -y install epel-release yum-plugin-priorities
 # osg repo
 yum -y install http://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
 
-# pegasus repo   
+# pegasus repo
 echo -e "# Pegasus\n[Pegasus]\nname=Pegasus\nbaseurl=http://download.pegasus.isi.edu/wms/download/rhel/6/\$basearch/\ngpgcheck=0\nenabled=1\npriority=50" >/etc/yum.repos.d/pegasus.repo
 
 # well rounded basic system to support a wide range of user jobs
@@ -75,17 +75,17 @@ yum -y install \
 	wget \
 	which
 
-# Cuda and cudnn - in case we land on GPU nodes. See:                                              
-#  https://developer.nvidia.com/cuda-downloads                                                     
-#  https://gitlab.com/nvidia/cuda/blob/centos7/9.0/devel/cudnn7/Dockerfile                         
+# Cuda and cudnn - in case we land on GPU nodes. See:
+#  https://developer.nvidia.com/cuda-downloads
+#  https://gitlab.com/nvidia/cuda/blob/centos7/9.0/devel/cudnn7/Dockerfile
 rpm -Uvh https://developer.download.nvidia.com/compute/cuda/repos/rhel6/x86_64/cuda-repo-rhel6-9.0.176-1.x86_64.rpm \
-    && yum -y clean all \                                                                                          
-    && yum -y install cuda cuda-9-0 cuda-8-0 \                                                                     
-    && cd /usr/local \                                                                                                            
-    && rm -f cuda \                                                                                                                             
-    && ln -s cuda-8.0 cuda \                                                                                                                                  
-    && curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.4/cudnn-8.0-linux-x64-v7.tgz -O \                                                            
-    && tar --no-same-owner -xzf cudnn-8.0-linux-x64-v7.tgz -C /usr/local \                                                                                                                    
+    && yum -y clean all \
+    && yum -y install cuda cuda-9-0 cuda-8-0 \
+    && cd /usr/local \
+    && rm -f cuda \
+    && ln -s cuda-8.0 cuda \
+    && curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.4/cudnn-8.0-linux-x64-v7.tgz -O \
+    && tar --no-same-owner -xzf cudnn-8.0-linux-x64-v7.tgz -C /usr/local \
     && rm -f cudnn-8.0-linux-x64-v7.tgz \
     && rm -f cuda \
     && ln -s cuda-9.0 cuda \
@@ -95,7 +95,7 @@ rpm -Uvh https://developer.download.nvidia.com/compute/cuda/repos/rhel6/x86_64/c
     && ldconfig
 
 # osg
-# use CA certs from CVMFS    
+# use CA certs from CVMFS
 yum -y install osg-ca-certs osg-wn-client
 mv /etc/grid-security/certificates /etc/grid-security/certificates.osg-ca-certs
 ln -f -s /cvmfs/oasis.opensciencegrid.org/mis/certificates /etc/grid-security/certificates
