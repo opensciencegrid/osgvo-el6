@@ -5,7 +5,7 @@ RUN yum -y upgrade
 RUN yum -y install epel-release yum-plugin-priorities
 
 # osg repo
-RUN yum -y install http://repo.grid.iu.edu/osg/3.3/osg-3.3-el6-release-latest.rpm
+RUN yum -y install http://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
    
 # pegasus repo 
 RUN echo -e "# Pegasus\n[Pegasus]\nname=Pegasus\nbaseurl=http://download.pegasus.isi.edu/wms/download/rhel/6/\$basearch/\ngpgcheck=0\nenabled=1\npriority=50" >/etc/yum.repos.d/pegasus.repo
@@ -58,6 +58,7 @@ RUN yum -y install \
            octave \
            octave-devel \
            openssl098e \
+           osg-wn-client \
            p7zip p7zip-plugins \
            python-astropy \
            python-devel \
@@ -71,8 +72,27 @@ RUN yum -y install \
            time \
            tk-devel \
            wget \
-           which \
+           which
     
+# Cuda and cudnn - in case we land on GPU nodes. See:
+#  https://developer.nvidia.com/cuda-downloads
+#  https://gitlab.com/nvidia/cuda/blob/centos7/9.0/devel/cudnn7/Dockerfile
+RUN rpm -Uvh https://developer.download.nvidia.com/compute/cuda/repos/rhel6/x86_64/cuda-repo-rhel6-9.0.176-1.x86_64.rpm \
+    && yum -y clean all \
+    && yum -y install cuda cuda-9-0 cuda-8-0 \
+    && cd /usr/local \
+    && rm -f cuda \
+    && ln -s cuda-8.0 cuda \
+    && curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.4/cudnn-8.0-linux-x64-v7.tgz -O \
+    && tar --no-same-owner -xzf cudnn-8.0-linux-x64-v7.tgz -C /usr/local \
+    && rm -f cudnn-8.0-linux-x64-v7.tgz \
+    && rm -f cuda \
+    && ln -s cuda-9.0 cuda \
+    && curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.4/cudnn-9.0-linux-x64-v7.tgz -O \
+    && tar --no-same-owner -xzf cudnn-9.0-linux-x64-v7.tgz -C /usr/local \
+    && rm -f cudnn-9.0-linux-x64-v7.tgz \
+    && ldconfig
+
 # osg
 # use CA certs from CVMFS
 RUN yum -y install osg-ca-certs osg-wn-client \
@@ -88,8 +108,17 @@ RUN yum -y install pegasus
 # required directories
 RUN mkdir -p /cvmfs
 
-# verification
-RUN ls -l /etc/grid-security/
+# make sure we have a way to bind host provided libraries
+# see https://github.com/singularityware/singularity/issues/611
+RUN mkdir -p /host-libs /etc/OpenCL/vendors
+
+# some extra singularity stuff
+COPY .singularity.d /.singularity.d
+RUN cd / && \
+    ln -s .singularity.d/actions/exec .exec && \
+    ln -s .singularity.d/actions/run .run && \
+    ln -s .singularity.d/actions/test .shell && \
+    ln -s .singularity.d/runscript singularity
 
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
