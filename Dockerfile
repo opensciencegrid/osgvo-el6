@@ -52,6 +52,7 @@ RUN yum -y install \
            libXpm \
            libXpm-devel \
            libXt \
+           libicu \
            mesa-libGL-devel \
            numpy \
            octave \
