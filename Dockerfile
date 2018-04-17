@@ -98,8 +98,15 @@ RUN yum -y install condor
 # pegasus
 RUN yum -y install pegasus
 
+# Cleaning caches to reduce size of image
+RUN yum clean all
+
 # required directories
 RUN mkdir -p /cvmfs
+
+# Create different mounts
+RUN mkdir -p /hadoop
+RUN mkdir -p /hdfs
 
 # make sure we have a way to bind host provided libraries
 # see https://github.com/singularityware/singularity/issues/611
