@@ -107,6 +107,8 @@ RUN mkdir -p /cvmfs
 # Create different mounts
 RUN mkdir -p /hadoop
 RUN mkdir -p /hdfs
+RUN mkdir -p /mnt/hadoop
+RUN mkdir -p /mnt/hdfs
 
 # make sure we have a way to bind host provided libraries
 # see https://github.com/singularityware/singularity/issues/611
