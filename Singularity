@@ -100,7 +100,19 @@ yum -y install condor
 yum -y install pegasus
 
 # required directories
-mkdir -p /cvmfs
+for MNTPOINT in \
+    /cvmfs \
+    /hadoop \
+    /hdfs \
+    /lizard \
+    /mnt/hadoop \
+    /mnt/hdfs \
+    /xenon \
+    /spt \
+    /stash2 \
+; do \
+    mkdir -p $MNTPOINT ; \
+done
 
 # make sure we have a way to bind host provided libraries
 # see https://github.com/singularityware/singularity/issues/611

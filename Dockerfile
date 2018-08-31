@@ -57,6 +57,8 @@ RUN yum -y install \
            numpy \
            octave \
            octave-devel \
+           openssh \
+           openssh-server \
            openssl098e \
            osg-wn-client \
            p7zip p7zip-plugins \
@@ -102,13 +104,19 @@ RUN yum -y install pegasus
 RUN yum clean all
 
 # required directories
-RUN mkdir -p /cvmfs
-
-# Create different mounts
-RUN mkdir -p /hadoop
-RUN mkdir -p /hdfs
-RUN mkdir -p /mnt/hadoop
-RUN mkdir -p /mnt/hdfs
+RUN for MNTPOINT in \
+        /cvmfs \
+        /hadoop \
+        /hdfs \
+        /lizard \
+        /mnt/hadoop \
+        /mnt/hdfs \
+        /xenon \
+        /spt \
+        /stash2 \
+    ; do \
+        mkdir -p $MNTPOINT ; \
+    done
 
 # make sure we have a way to bind host provided libraries
 # see https://github.com/singularityware/singularity/issues/611
