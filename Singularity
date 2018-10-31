@@ -90,14 +90,16 @@ rpm -Uvh https://developer.download.nvidia.com/compute/cuda/repos/rhel6/x86_64/c
 # osg
 # use CA certs from CVMFS
 yum -y install osg-ca-certs osg-wn-client
-mv /etc/grid-security/certificates /etc/grid-security/certificates.osg-ca-certs
-ln -f -s /cvmfs/oasis.opensciencegrid.org/mis/certificates /etc/grid-security/certificates
+rm -f /etc/grid-security/certificates/*.r0
 
 # htcondor - include so we can chirp
 yum -y install condor
 
 # pegasus
 yum -y install pegasus
+
+# Cleaning caches to reduce size of image
+RUN yum clean all
 
 # required directories
 for MNTPOINT in \
