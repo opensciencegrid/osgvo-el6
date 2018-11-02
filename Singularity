@@ -99,7 +99,7 @@ yum -y install condor
 yum -y install pegasus
 
 # Cleaning caches to reduce size of image
-RUN yum clean all
+yum clean all
 
 # required directories
 for MNTPOINT in \
