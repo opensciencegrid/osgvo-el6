@@ -49,10 +49,10 @@ RUN yum -y install \
            libxml2 \
            libxml2-devel \
            libXmu-devel \
+           libicu \
            libXpm \
            libXpm-devel \
            libXt \
-           libicu \
            mesa-libGL-devel \
            numpy \
            octave \
@@ -68,6 +68,7 @@ RUN yum -y install \
            redhat-lsb-core \
            rsync \
            scipy \
+           stashcache-client \
            subversion \
            tcl-devel \
            tcsh \
