@@ -124,6 +124,8 @@ RUN mkdir -p /etc/OpenCL/vendors
 # some extra singularity stuff
 COPY .singularity.d /.singularity.d
 
+RUN ls -la /.singularity.d/
+
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
 
