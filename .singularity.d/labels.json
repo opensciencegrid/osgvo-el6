@@ -1,0 +1,7 @@
+{
+    "opensciencegrid.name": "EL 6",
+    "opensciencegrid.description": "Enterprise Linux (CentOS) 6 base image",
+    "opensciencegrid.url": "https://www.centos.org/",
+    "opensciencegrid.category": "Base",
+    "opensciencegrid.definition_url": "https://github.com/opensciencegrid/osgvo-el6"
+}
